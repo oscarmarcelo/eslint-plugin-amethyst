@@ -16,6 +16,82 @@ const config = [
 					ImportDeclaration: 'never',
 				},
 			],
+			'@stylistic/padding-line-between-statements': [
+				'error',
+
+
+				// Restore from XO.
+				// -----------------------------------------------------------------------------
+				{
+					blankLine: 'always',
+					prev: 'multiline-block-like',
+					next: '*',
+				},
+
+
+				// Always pad before and after groups of consecutive variable declarations,
+				// and between groups of different variable kinds.
+				// -----------------------------------------------------------------------------
+				{
+					blankLine: 'always',
+					prev: '*',
+					next: [
+						'const',
+						'let',
+						'var',
+					],
+				},
+				{
+					blankLine: 'always',
+					prev: [
+						'const',
+						'let',
+						'var',
+					],
+					next: '*',
+				},
+				{
+					blankLine: 'always',
+					prev: [
+						'const',
+						'let',
+						'var',
+					],
+					next: [
+						'const',
+						'let',
+						'var',
+					],
+				},
+
+				// But ignore consecutive variables of the same kind.
+				{
+					blankLine: 'any',
+					prev: 'const',
+					next: 'const',
+				},
+				{
+					blankLine: 'any',
+					prev: 'let',
+					next: 'let',
+				},
+				{
+					blankLine: 'any',
+					prev: 'var',
+					next: 'var',
+				},
+
+
+				// Always pad before returns
+				// -----------------------------------------------------------------------------
+				{
+					blankLine: 'always',
+					prev: '*',
+					next: [
+						'return',
+					],
+				},
+			],
 			'import-x/order': [
 				'error',
 				{
