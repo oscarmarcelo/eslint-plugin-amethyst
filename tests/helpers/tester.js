@@ -28,8 +28,8 @@ export default function createTester(importMeta) {
 	return options => {
 		tester.run(ruleId, rule, {
 			...options,
-			...(options.valid && {valid: options.valid.map(testCase => normalizeTestCase(testCase))}),
-			...(options.invalid && {invalid: options.invalid.map(testCase => normalizeTestCase(testCase))}),
+			valid: (options.valid ?? []).map(testCase => normalizeTestCase(testCase)),
+			invalid: (options.invalid ?? []).map(testCase => normalizeTestCase(testCase)),
 		});
 	};
 }
