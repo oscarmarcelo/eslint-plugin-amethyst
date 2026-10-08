@@ -18,6 +18,7 @@ export default function createTester(configName, ruleId) {
 		throw new Error(`Unknown Amethyst config: ${configName}`);
 	}
 
+
 	function lint(code, filename = 'test.js') {
 		return linter.verify(
 			code,
@@ -32,9 +33,10 @@ export default function createTester(configName, ruleId) {
 			.filter(message => message.ruleId === ruleId);
 	}
 
+
 	return options => {
 		for (const [index, {name, filename, code}] of (options.valid ?? []).map(testCase => normalizeTestCase(testCase)).entries()) {
-			test(`${ruleId} › valid(${index + 1}): ${name}`, t => {
+			test(`valid(${index + 1}): ${name}`, t => {
 				const messages = lint(code, filename);
 
 				t.is(messages.length, 0, `Expected no ${ruleId} errors, but received ${messages.length}.`);
@@ -42,7 +44,7 @@ export default function createTester(configName, ruleId) {
 		}
 
 		for (const [index, {name, filename, code, errors}] of (options.invalid ?? []).map(testCase => normalizeTestCase(testCase)).entries()) {
-			test(`${ruleId} › invalid(${index + 1}): ${name}`, t => {
+			test(`invalid(${index + 1}): ${name}`, t => {
 				const messages = lint(code, filename);
 
 				const expectedErrors = typeof errors === 'number'
