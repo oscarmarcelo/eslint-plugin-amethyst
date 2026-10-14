@@ -112,8 +112,11 @@ Amethyst also provides configurations for rules maintained by other ESLint plugi
 | --- | --- | --- |
 | `@stylistic/no-multiple-empty-lines` | Error | Allows up to 3 consecutive empty lines. |
 | `@stylistic/object-curly-newline` | Error | Does not report named imports. |
+| `@stylistic/padding-line-between-statements` | Error | Enforces padding lines around variable declarations and return statements. |
 | `import-x/order` | Error | Enforces empty lines between import groups and alphabetical ordering of imports, including named imports. |
 | `jsdoc/require-asterisk-prefix` | Error | Enforces each JSDoc line to start with `*`. |
+| `jsdoc/sort-tags` | Error | Enforces a custom tag order and grouping. |
+| `jsdoc/tag-lines` | Error | Enforces empty lines after descriptions and also between different tag kinds. |
 | `no-console` | Warn | Reports the use of `console`, except for `.warn()` and `.error()`. |
 | `markdown/heading-increment` | Error | Enforces correct use of heading levels. |
 | `package-json/sort-properties` | Error | Enforces a custom property order. |
