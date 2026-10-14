@@ -32,43 +32,6 @@ function canMergeConfigurations(first, second) {
 
 
 
-function mergeConfiguration(first, second) {
-	const configuration = {
-		...first,
-		...second,
-		...(
-			(
-				first.plugins
-				|| second.plugins
-			)
-			&& {
-				plugins: {
-					...first.plugins,
-					...second.plugins,
-				},
-			}
-		),
-		...(
-			(
-				first.rules
-				|| second.rules
-			)
-			&& {
-				rules: {
-					...first.rules,
-					...second.rules,
-				},
-			}
-		),
-	};
-
-
-
-	return configuration;
-}
-
-
-
 export function createConfigurations(namespace, name, configurations) {
 	return configurations.map(configuration => {
 		const config = {...configuration};
@@ -102,7 +65,34 @@ export function mergeConfigurations(...configurations) {
 			continue;
 		}
 
-		merged[index] = mergeConfiguration(merged[index], configuration);
+		merged[index] = {
+			...merged[index],
+			...configuration,
+			...(
+				(
+					merged[index].plugins
+					|| configuration.plugins
+				)
+				&& {
+					plugins: {
+						...merged[index].plugins,
+						...configuration.plugins,
+					},
+				}
+			),
+			...(
+				(
+					merged[index].rules
+					|| configuration.rules
+				)
+				&& {
+					rules: {
+						...merged[index].rules,
+						...configuration.rules,
+					},
+				}
+			),
+		};
 	}
 
 	return merged;
