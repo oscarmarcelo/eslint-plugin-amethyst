@@ -49,12 +49,12 @@ Amethyst provides several presets that combine its different groups of rules and
 
 ### `core`
 
-The `core` preset contains only rules implemented and maintained directly by Amethyst.
+Contains only rules implemented and maintained directly by Amethyst.
 
 
 ### `compatibility`
 
-The `compatibility` preset contains Amethyst's core rules together with configuration changes intended to make them work well with other ESLint configurations and plugins, including XO.
+Contains Amethyst's core rules together with configuration changes intended to make them work well with other ESLint configurations and plugins, including XO.
 
 > [!NOTE]
 > This preset is currently equivalent to `core`, as compatibility changes have not been added yet.
@@ -62,16 +62,12 @@ The `compatibility` preset contains Amethyst's core rules together with configur
 
 ### `external`
 
-The `external` preset contains configurations for rules provided by other ESLint plugins that Amethyst recommends.
+Contains configurations for rules provided by other ESLint plugins that Amethyst recommends.
 
 
 ### `all`
 
-The `all` preset combines all three groups:
-
-1. Amethyst's core rules.
-2. Compatibility adjustments for other ESLint configurations and plugins.
-3. Recommended rules provided by external ESLint plugins.
+Combines all three previous groups.
 
 > [!TIP]
 > This is the recommended preset when you want the complete Amethyst configuration.
