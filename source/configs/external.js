@@ -139,6 +139,64 @@ const config = [
 				'always',
 			],
 
+			// Sort JSDoc tags in a specific order, with each group separated by a single empty line.
+			'jsdoc/sort-tags': [
+				'error',
+				{
+					tagSequence: [
+						{
+							tags: [
+								'internal',
+								'private',
+								'protected',
+								'package',
+								'access',
+								'public',
+							],
+						},
+						{
+							tags: [
+								'typedef',
+								'callback',
+							],
+						},
+						{
+							tags: [
+								'param',
+								'arg',
+								'argument',
+							],
+						},
+						{
+							tags: [
+								'property',
+								'prop',
+							],
+						},
+						{
+							tags: [
+								'returns',
+								'return',
+							],
+						},
+						{
+							tags: [
+								'-other',
+							],
+						},
+					],
+				},
+			],
+
+			// Require an empty line after descriptions.
+			'jsdoc/tag-lines': [
+				'error',
+				'any',
+				{
+					startLines: 1,
+				},
+			],
+
 			// Keep warning/error output available while discouraging other console calls.
 			'no-console': [
 				'warn',
