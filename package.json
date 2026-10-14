@@ -30,6 +30,9 @@
 		"test": "xo && c8 -r=text -r=html ava",
 		"release": "np"
 	},
+	"dependencies": {
+		"comment-parser": "^1.4.9"
+	},
 	"devDependencies": {
 		"ava": "^8.0.1",
 		"c8": "^12.0.0",
