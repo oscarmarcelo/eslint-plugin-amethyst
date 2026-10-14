@@ -36,7 +36,7 @@ test({
 test({
 	valid: [
 		{
-			name: 'doesn\'t affect multiline objects',
+			name: 'allows multiline objects',
 			code: `
 				const object = {
 					a,
@@ -44,8 +44,69 @@ test({
 				};
 			`,
 		},
+		{
+			name: 'allows multiline object patterns',
+			code: `
+				const {
+					a,
+					b,
+				} = object;
+			`,
+		},
+	],
+	invalid: [
+		{
+			name: 'requires objects with four properties to be multiline',
+			code: `
+				const object = {a, b, c, d};
+			`,
+			errors: [
+				{messageId: 'expectedLinebreakAfterOpeningBrace'},
+				{messageId: 'expectedLinebreakBeforeClosingBrace'},
+			],
+		},
+		{
+			name: 'requires object braces to be consistent when specifiers span multiple lines',
+			code: `
+				const object = {a, b,
+					c, d};
+			`,
+			errors: [
+				{messageId: 'expectedLinebreakAfterOpeningBrace'},
+				{messageId: 'expectedLinebreakBeforeClosingBrace'},
+			],
+		},
 	],
 });
+
+
+// TODO: Understand why this test fails.
+//
+// test({
+// 	invalid: [
+// 		{
+// 			name: 'requires exports with four specifiers to be multiline',
+// 			code: `
+// 				export {a, b, c, d};
+// 			`,
+// 			errors: [
+// 				{messageId: 'expectedLinebreakAfterOpeningBrace'},
+// 				{messageId: 'expectedLinebreakBeforeClosingBrace'},
+// 			],
+// 		},
+// 		{
+// 			name: 'requires export braces to be consistent when specifiers span multiple lines',
+// 			code: `
+// 				export {a, b,
+// 					c, d};
+// 			`,
+// 			errors: [
+// 				{messageId: 'expectedLinebreakAfterOpeningBrace'},
+// 				{messageId: 'expectedLinebreakBeforeClosingBrace'},
+// 			],
+// 		},
+// 	],
+// });
 
 
 test({

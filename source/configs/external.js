@@ -25,6 +25,23 @@ const config = [
 			'@stylistic/object-curly-newline': [
 				'error',
 				{
+					// Restored from XO.
+					ObjectExpression: {
+						multiline: true,
+						minProperties: 4,
+						consistent: true,
+					},
+					ObjectPattern: {
+						multiline: true,
+						consistent: true,
+					},
+					ExportDeclaration: {
+						multiline: true,
+						minProperties: 4,
+						consistent: true,
+					},
+
+					// Configuration overrides.
 					ImportDeclaration: 'never',
 				},
 			],
@@ -106,6 +123,7 @@ const config = [
 				{
 					// Restored from XO.
 					'newlines-between': 'always',
+					warnOnUnassignedImports: true,
 
 					// Configuration overrides.
 					alphabetize: {

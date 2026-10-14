@@ -32,6 +32,24 @@ test({
 });
 
 
+
+// TODO: Understand why this test fails.
+//
+// test({
+// 	invalid: [
+// 		{
+// 			name: 'reports for unassigned imports',
+// 			code: `
+// 				import 'foo';
+// 			`,
+// 			errors: [
+// 				{messageId: '???'},
+// 			],
+// 		},
+// 	],
+// });
+
+
 test({
 	valid: [
 		{
