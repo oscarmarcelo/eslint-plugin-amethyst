@@ -1,1 +1,8 @@
-/* eslint-disable unicorn/no-empty-file -- No core rules for now. */
+/**
+ * Amethyst's own rules, keyed by their public rule names.
+ *
+ * @internal
+ *
+ * @type {Record<string, import('eslint').Rule.RuleModule>}
+ */
+export {default as 'empty-lines'} from '../rules/empty-lines.js';

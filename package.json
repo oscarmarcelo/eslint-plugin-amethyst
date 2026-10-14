@@ -27,11 +27,13 @@
 		"node": ">=24"
 	},
 	"scripts": {
-		"test": "xo && c8 -r=text -r=html ava",
+		"docs": "eslint-doc-generator",
+		"test": "xo && eslint-doc-generator --check && c8 -r=text -r=html ava",
 		"release": "np"
 	},
 	"dependencies": {
-		"comment-parser": "^1.4.9"
+		"comment-parser": "^1.4.9",
+		"detect-newline": "^4.0.1"
 	},
 	"devDependencies": {
 		"ava": "^8.0.1",
@@ -39,6 +41,7 @@
 		"eslint": "^10.12.0",
 		"eslint-ava-rule-tester": "^5.0.1",
 		"eslint-config-xo": "^5.0.0",
+		"eslint-doc-generator": "^3.7.1",
 		"eslint-plugin-eslint-plugin": "^7.6.2",
 		"np": "^12.1.1",
 		"outdent": "^0.8.0",

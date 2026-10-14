@@ -51,16 +51,13 @@ Amethyst provides several presets that combine its different groups of rules and
 
 The `core` preset contains only rules implemented and maintained directly by Amethyst.
 
-> [!NOTE]
-> This preset is currently empty. Amethyst's core rules will be added in future releases.
-
 
 ### `compatibility`
 
 The `compatibility` preset contains Amethyst's core rules together with configuration changes intended to make them work well with other ESLint configurations and plugins, including XO.
 
 > [!NOTE]
-> This preset is currently equivalent to `core`, as neither Amethyst rules nor compatibility changes have been added yet.
+> This preset is currently equivalent to `core`, as compatibility changes have not been added yet.
 
 
 ### `external`
@@ -90,8 +87,15 @@ Amethyst's rules and configurations are divided into three groups.
 
 These are rules implemented and maintained directly by Amethyst.
 
-> [!NOTE]
-> They are not available yet. Core rules will be introduced in future releases.
+<!-- begin auto-generated rules list -->
+
+🔧 Automatically fixable by the [`--fix` CLI option](https://eslint.org/docs/user-guide/command-line-interface#--fix).
+
+| Name                                     | Description                                            | 🔧 |
+| :--------------------------------------- | :----------------------------------------------------- | :- |
+| [empty-lines](docs/rules/empty-lines.md) | Enforce consistent empty lines between two statements. | 🔧 |
+
+<!-- end auto-generated rules list -->
 
 
 ### Compatibility rules

@@ -13,7 +13,7 @@ test('plugin metadata is exported', t => {
 
 test('plugin exports its rules', t => {
 	t.deepEqual(Object.keys(amethyst.rules), [
-		// Amethyst rules will go here.
+		'empty-lines',
 	]);
 });
 
@@ -35,7 +35,7 @@ test('core preset contains the Amethyst plugin and rules', t => {
 	t.deepEqual(configuration.files, ['**/*.{js,jsx,mjs,cjs}']);
 	t.is(configuration.plugins.amethyst, amethyst);
 	t.deepEqual(configuration.rules, {
-		// Amethyst rules will go here.
+		'amethyst/empty-lines': 'error',
 	});
 });
 
@@ -75,14 +75,20 @@ test('all preset contains the merged JavaScript and scoped configurations', t =>
 
 	t.deepEqual(amethyst.configs.all[0].files, ['**/*.{js,jsx,mjs,cjs}']);
 	t.is(amethyst.configs.all[0].plugins.amethyst, amethyst);
-	t.deepEqual(amethyst.configs.all[0].rules, amethyst.configs.external[0].rules);
+
+	t.deepEqual(amethyst.configs.all[0].rules, {
+		...amethyst.configs.external[0].rules,
+		...amethyst.configs.compatibility[0].rules,
+	});
 
 	for (const scope of ['markdown', 'package-json']) {
 		const allConfiguration = amethyst.configs.all.find(configuration => configuration.name.endsWith(`/${scope}`));
 		const externalConfiguration = amethyst.configs.external.find(configuration => configuration.name.endsWith(`/${scope}`));
+		const compatibilityConfiguration = amethyst.configs.compatibility.find(configuration => configuration.name.endsWith(`/${scope}`));
 
 		t.deepEqual(allConfiguration, {
 			...externalConfiguration,
+			...compatibilityConfiguration,
 			name: `amethyst/all/${scope}`,
 		});
 	}
