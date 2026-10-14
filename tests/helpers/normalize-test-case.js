@@ -1,25 +1,23 @@
 import outdent from 'outdent';
 
+/**
+ * @import {RuleTester} from 'eslint';
+ */
 
 
+
+/**
+ * Normalize a test case and dedent its source and expected output.
+ *
+ * @internal
+ *
+ * @param {RuleTester.ValidTestCase | RuleTester.InvalidTestCase} testCase - The test case object.
+ *
+ * @returns {RuleTester.ValidTestCase | RuleTester.InvalidTestCase} The normalized test case.
+ */
 export default function normalizeTestCase(testCase) {
-	if (typeof testCase === 'string') {
-		testCase = {code: testCase};
-	}
+	testCase.code &&= outdent.string(testCase.code);
+	testCase.output &&= outdent.string(testCase.output);
 
-	const code = testCase.code && outdent.string(testCase.code);
-
-	return {
-		...testCase,
-		...(!testCase.name && {name: code}),
-		...(code && {code}),
-		...(
-			Object.hasOwn(testCase, 'output')
-			&& {
-				output: testCase.output === null
-					? null
-					: outdent.string(testCase.output),
-			}
-		),
-	};
+	return testCase;
 }

@@ -4,14 +4,6 @@ import normalizeTestCase from '../helpers/normalize-test-case.js';
 
 
 
-test('normalizes a string test case', t => {
-	t.deepEqual(normalizeTestCase('\n\tconst foo = 1;\n'), {
-		code: 'const foo = 1;',
-		name: 'const foo = 1;',
-	});
-});
-
-
 test('outdents code and output', t => {
 	const result = normalizeTestCase({
 		code: `
@@ -40,7 +32,14 @@ test('preserves an explicit name', t => {
 
 
 test('preserves output null', t => {
-	t.is(normalizeTestCase({code: 'const foo = 1;', output: null}).output, null);
+	t.is(
+		normalizeTestCase({
+			code: 'const foo = 1;',
+			output: null,
+		})
+			.output,
+		null,
+	);
 });
 
 
