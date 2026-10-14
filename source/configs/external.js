@@ -1,37 +1,46 @@
+/**
+ * Recommended settings for rules maintained by other ESLint plugins.
+ * The referenced plugins are deliberately not registered or bundled here.
+ *
+ * @internal
+ *
+ * @type {(import('../create-config.js').ScopedConfig)[]}
+ */
 const config = [
 	{
 		files: [
 			'**/*.{js,jsx,mjs,cjs}',
 		],
 		rules: {
+
+			// Increase to up to three allowed empty lines.
 			'@stylistic/no-multiple-empty-lines': [
 				'error',
 				{
 					max: 3,
 				},
 			],
+
+			// Keep named imports on one line.
 			'@stylistic/object-curly-newline': [
 				'error',
 				{
 					ImportDeclaration: 'never',
 				},
 			],
+
+			// Require padding lines before and after statements.
 			'@stylistic/padding-line-between-statements': [
 				'error',
 
-
-				// Restore from XO.
-				// -----------------------------------------------------------------------------
+				// Restored from XO.
 				{
 					blankLine: 'always',
 					prev: 'multiline-block-like',
 					next: '*',
 				},
 
-
-				// Always pad before and after groups of consecutive variable declarations,
-				// and between groups of different variable kinds.
-				// -----------------------------------------------------------------------------
+				// Always pad before and after variable declarations...
 				{
 					blankLine: 'always',
 					prev: '*',
@@ -64,7 +73,7 @@ const config = [
 					],
 				},
 
-				// But ignore consecutive variables of the same kind.
+				// ...while allowing variables of the same kind to group.
 				{
 					blankLine: 'any',
 					prev: 'const',
@@ -81,9 +90,7 @@ const config = [
 					next: 'var',
 				},
 
-
 				// Always pad before returns
-				// -----------------------------------------------------------------------------
 				{
 					blankLine: 'always',
 					prev: '*',
@@ -92,20 +99,29 @@ const config = [
 					],
 				},
 			],
+
+			// Separate import groups and sort imported names consistently.
 			'import-x/order': [
 				'error',
 				{
+					// Restored from XO.
 					'newlines-between': 'always',
+
+					// Configuration overrides.
 					alphabetize: {
 						order: 'asc',
 					},
 					named: true,
 				},
 			],
+
+			// Require the conventional asterisk prefix on every JSDoc line.
 			'jsdoc/require-asterisk-prefix': [
 				'error',
 				'always',
 			],
+
+			// Keep warning/error output available while discouraging other console calls.
 			'no-console': [
 				'warn',
 				{
@@ -123,6 +139,8 @@ const config = [
 		],
 		language: 'markdown/gfm',
 		rules: {
+
+			// Require headings to not skip level increments.
 			'markdown/heading-increment': 'error',
 		},
 	},
@@ -133,6 +151,8 @@ const config = [
 		],
 		language: 'json/json',
 		rules: {
+
+			// Sort package.json properties in a specific order.
 			'package-json/sort-properties': [
 				'error',
 				{

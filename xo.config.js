@@ -4,6 +4,9 @@ import amethyst from './source/index.js';
 
 
 
+/**
+ * @type {import('eslint').Linter.Config[]}
+ */
 const config = [
 	...amethyst.configs.all,
 	{

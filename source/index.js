@@ -5,10 +5,19 @@ import compatibilityConfig from './configs/compatibility.js';
 import externalConfig from './configs/external.js';
 import {createConfigurations, mergeConfigurations} from './create-config.js';
 
+/**
+ * @import {ESLint, Linter} from 'eslint';
+ */
+
 
 
 const namespace = packageJson.name.replace(/^eslint-plugin-/v, '');
 
+
+
+/**
+ * @type {ESLint.Plugin}
+ */
 const amethyst = {
 	meta: {
 		name: packageJson.name,
@@ -19,6 +28,13 @@ const amethyst = {
 	configs: {},
 };
 
+
+
+/**
+ * @internal
+ *
+ * @type {Linter.Config[]}
+ */
 const coreConfig = [
 	{
 		files: [
@@ -36,6 +52,8 @@ const coreConfig = [
 		),
 	},
 ];
+
+
 
 const configurations = {
 	core: coreConfig,
