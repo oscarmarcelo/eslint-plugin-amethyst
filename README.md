@@ -112,7 +112,7 @@ Amethyst also provides configurations for rules maintained by other ESLint plugi
 | --- | --- | --- |
 | `@stylistic/no-multiple-empty-lines` | Error | Allows up to 3 consecutive empty lines. |
 | `@stylistic/object-curly-newline` | Error | Does not report named imports. |
-| `@stylistic/padding-line-between-statements` | Error | Enforces padding lines around variable declarations and return statements. |
+| `@stylistic/padding-line-between-statements` | Error | Enforces empty lines around variable declarations (except between consecutive variables of the same kind), and before return statements. |
 | `import-x/order` | Error | Enforces empty lines between import groups and alphabetical ordering of imports, including named imports. |
 | `jsdoc/require-asterisk-prefix` | Error | Enforces each JSDoc line to start with `*`. |
 | `jsdoc/sort-tags` | Error | Enforces a custom tag order and grouping. |
