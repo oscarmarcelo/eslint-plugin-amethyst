@@ -42,7 +42,7 @@ test({
 			`,
 			errors: [
 				// eslint-disable-next-line @stylistic/max-len
-				{message: 'Tags are not in the prescribed order: internal, private, protected, package, access, public, typedef, callback, param, arg, argument, property, prop, returns, return, -other'},
+				{message: 'Tags are not in the prescribed order: module, file, fileoverview, overview, import, internal, private, protected, package, access, public, typedef, type, callback, param, arg, argument, property, prop, returns, return, -other'},
 			],
 		},
 		{

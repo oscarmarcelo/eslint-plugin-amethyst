@@ -146,6 +146,15 @@ const config = [
 					tagSequence: [
 						{
 							tags: [
+								'module',
+								'file',
+								'fileoverview',
+								'overview',
+								'import',
+							],
+						},
+						{
+							tags: [
 								'internal',
 								'private',
 								'protected',
@@ -157,6 +166,7 @@ const config = [
 						{
 							tags: [
 								'typedef',
+								'type',
 								'callback',
 							],
 						},
