@@ -16,8 +16,13 @@ import outdent from 'outdent';
  * @returns {RuleTester.ValidTestCase | RuleTester.InvalidTestCase} The normalized test case.
  */
 export default function normalizeTestCase(testCase) {
-	testCase.code &&= outdent.string(testCase.code);
-	testCase.output &&= outdent.string(testCase.output);
+	testCase.code &&= testCase.code.includes('\r')
+		? testCase.code
+		: outdent.string(testCase.code);
+
+	testCase.output &&= testCase.output.includes('\r')
+		? testCase.output
+		: outdent.string(testCase.output);
 
 	return testCase;
 }

@@ -87,9 +87,10 @@ These are rules implemented and maintained directly by Amethyst.
 
 🔧 Automatically fixable by the [`--fix` CLI option](https://eslint.org/docs/user-guide/command-line-interface#--fix).
 
-| Name                                     | Description                                            | 🔧 |
-| :--------------------------------------- | :----------------------------------------------------- | :- |
-| [empty-lines](docs/rules/empty-lines.md) | Enforce consistent empty lines between two statements. | 🔧 |
+| Name                                                                 | Description                                            | 🔧 |
+| :------------------------------------------------------------------- | :----------------------------------------------------- | :- |
+| [empty-lines](docs/rules/empty-lines.md)                             | Enforce consistent empty lines between two statements. | 🔧 |
+| [no-redundant-jsdoc-public](docs/rules/no-redundant-jsdoc-public.md) | Disallow redundant `@public` JSDoc annotations         | 🔧 |
 
 <!-- end auto-generated rules list -->
 

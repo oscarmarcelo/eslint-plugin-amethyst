@@ -14,6 +14,7 @@ test('plugin metadata is exported', t => {
 test('plugin exports its rules', t => {
 	t.deepEqual(Object.keys(amethyst.rules), [
 		'empty-lines',
+		'no-redundant-jsdoc-public',
 	]);
 });
 
@@ -36,6 +37,7 @@ test('core preset contains the Amethyst plugin and rules', t => {
 	t.is(configuration.plugins.amethyst, amethyst);
 	t.deepEqual(configuration.rules, {
 		'amethyst/empty-lines': 'error',
+		'amethyst/no-redundant-jsdoc-public': 'error',
 	});
 });
 
