@@ -302,6 +302,34 @@ function isLoneOrDeclarationExport(currentUnit, adjacentUnit) {
  * @returns {Rule.RuleListener} The rule's visitors.
  */
 function create(context) {
+	/**
+	 * Apply spacing rules to nested members.
+	 *
+	 * @internal
+	 *
+	 * @param {Node} node - The node to visit.
+	 */
+	function nestedDeclaration(node) {
+		requireEmptyLines({
+			context,
+			units: createUnits(context, node.body),
+			adjacent(current) {
+				// One of following:
+				// - Class and function declarations
+				// - Standalone JSDoc comments
+				// - Units with JSDoc comments
+				if (
+					isDeclaration(current.node)
+					|| isJSDoc(current.node)
+					|| hasJSDoc(current)
+				) {
+					return EMPTY_LINES.nestedMember;
+				}
+			},
+		});
+	}
+
+
 	return {
 		Program(node) {
 			const units = createUnits(context, node);
@@ -381,25 +409,8 @@ function create(context) {
 				},
 			});
 		},
-		FunctionDeclaration(node) {
-			requireEmptyLines({
-				context,
-				units: createUnits(context, node.body),
-				adjacent(current) {
-					// One of following:
-					// - Class and function declarations
-					// - Standalone JSDoc comments
-					// - Units with JSDoc comments
-					if (
-						isDeclaration(current.node)
-						|| isJSDoc(current.node)
-						|| hasJSDoc(current)
-					) {
-						return EMPTY_LINES.nestedMember;
-					}
-				},
-			});
-		},
+		FunctionDeclaration: nestedDeclaration,
+		FunctionExpression: nestedDeclaration,
 	};
 }
 

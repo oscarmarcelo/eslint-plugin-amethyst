@@ -4,13 +4,24 @@ import createTester from '../../helpers/tester.js';
 
 const {test, testValidAndInvalid} = createTester(import.meta.resolve('.'));
 
-const declarations = {
-	function: {
+const parents = {
+	'function declaration': {
+		opening: 'function outer() {',
+		closing: '}',
+	},
+	'function expression': {
+		opening: 'const outer = function () {',
+		closing: '};',
+	},
+};
+
+const children = {
+	'function declaration': {
 		foo: 'function foo() {}',
 		bar: 'function bar() {}',
 		nonType: 'class Baz {}',
 	},
-	class: {
+	'class declaration': {
 		foo: 'class Foo {}',
 		bar: 'class Bar {}',
 		nonType: 'function baz() {}',
@@ -19,212 +30,16 @@ const declarations = {
 
 
 
-for (const [name, values] of Object.entries(declarations)) {
-	const testCases = [
-		{
-			name: `trailing line comments before a ${name} declaration`,
-			code: `
-				function outer() {
-					${values.foo} // A trailing comment
-					${values.bar}
-				}
-			`,
-			errors: [
-				{
-					messageId: 'require-empty-lines-after',
-				},
-				{
-					messageId: 'require-empty-lines-before',
-				},
-			],
-			output: `
-				function outer() {
-					${values.foo} // A trailing comment
-
-
-					${values.bar}
-				}
-			`,
-		},
-		{
-			name: `trailing block comments before a ${name} declaration`,
-			code: `
-				function outer() {
-					${values.foo} /* A trailing comment */
-					${values.bar}
-				}
-			`,
-			errors: [
-				{
-					messageId: 'require-empty-lines-after',
-				},
-				{
-					messageId: 'require-empty-lines-before',
-				},
-			],
-			output: `
-				function outer() {
-					${values.foo} /* A trailing comment */
-
-
-					${values.bar}
-				}
-			`,
-		},
-		{
-			name: `multiline trailing block comments before a ${name} declaration`,
-			code: `
-				function outer() {
-					${values.foo} /*
-					A trailing comment
-					*/
-					${values.bar}
-				}
-			`,
-			errors: [
-				{
-					messageId: 'require-empty-lines-after',
-				},
-				{
-					messageId: 'require-empty-lines-before',
-				},
-			],
-			output: `
-				function outer() {
-					${values.foo} /*
-					A trailing comment
-					*/
-
-
-					${values.bar}
-				}
-			`,
-		},
-		{
-			name: `multiple trailing block comments before a ${name} declaration`,
-			code: `
-				function outer() {
-					${values.foo} /* A trailing comment */ /* Another trailing comment */
-					${values.bar}
-				}
-			`,
-			errors: [
-				{
-					messageId: 'require-empty-lines-after',
-				},
-				{
-					messageId: 'require-empty-lines-before',
-				},
-			],
-			output: `
-				function outer() {
-					${values.foo} /* A trailing comment */ /* Another trailing comment */
-
-
-					${values.bar}
-				}
-			`,
-		},
-		{
-			name: `multiple trailing mixed comments before a ${name} declaration`,
-			code: `
-				function outer() {
-					${values.foo} /* A trailing comment */ // Another trailing comment
-					${values.bar}
-				}
-			`,
-			errors: [
-				{
-					messageId: 'require-empty-lines-after',
-				},
-				{
-					messageId: 'require-empty-lines-before',
-				},
-			],
-			output: `
-				function outer() {
-					${values.foo} /* A trailing comment */ // Another trailing comment
-
-
-					${values.bar}
-				}
-			`,
-		},
-		{
-			name: `multiple multiline trailing block comments before a ${name} declaration`,
-			code: `
-				function outer() {
-					${values.foo} /*
-					A trailing comment
-					*/ /*
-					Another trailing comment
-					*/
-					${values.bar}
-				}
-			`,
-			errors: [
-				{
-					messageId: 'require-empty-lines-after',
-				},
-				{
-					messageId: 'require-empty-lines-before',
-				},
-			],
-			output: `
-				function outer() {
-					${values.foo} /*
-					A trailing comment
-					*/ /*
-					Another trailing comment
-					*/
-
-
-					${values.bar}
-				}
-			`,
-		},
-		{
-			name: `multiple multiline trailing mixed comments before a ${name} declaration`,
-			code: `
-				function outer() {
-					${values.foo} /*
-					A trailing comment
-					*/ // Another trailing comment
-					${values.bar}
-				}
-			`,
-			errors: [
-				{
-					messageId: 'require-empty-lines-after',
-				},
-				{
-					messageId: 'require-empty-lines-before',
-				},
-			],
-			output: `
-				function outer() {
-					${values.foo} /*
-					A trailing comment
-					*/ // Another trailing comment
-
-
-					${values.bar}
-				}
-			`,
-		},
-	];
-
-	testValidAndInvalid('accepts', 'preserves', testCases);
-
-
-	test({
-		invalid: [
+for (const [parentName, parentValues] of Object.entries(parents)) {
+	for (const [childName, childValues] of Object.entries(children)) {
+		const testCases = [
 			{
-				name: `preserves trailing block comments before an inline ${name} declaration`,
+				name: `trailing line comments before a ${childName} inside ${parentName}s`,
 				code: `
-					function outer() {
-						${values.foo} /* A trailing comment */ ${values.bar}
-					}
+					${parentValues.opening}
+						${childValues.foo} // A trailing comment
+						${childValues.bar}
+					${parentValues.closing}
 				`,
 				errors: [
 					{
@@ -235,22 +50,21 @@ for (const [name, values] of Object.entries(declarations)) {
 					},
 				],
 				output: `
-					function outer() {
-						${values.foo} /* A trailing comment */
+					${parentValues.opening}
+						${childValues.foo} // A trailing comment
 
 
-						${values.bar}
-					}
+						${childValues.bar}
+					${parentValues.closing}
 				`,
 			},
 			{
-				name: `preserves trailing multiline block comments before an inline ${name} declaration`,
+				name: `trailing block comments before a ${childName} inside ${parentName}s`,
 				code: `
-					function outer() {
-						${values.foo} /*
-						A trailing comment
-						*/ ${values.bar}
-					}
+					${parentValues.opening}
+						${childValues.foo} /* A trailing comment */
+						${childValues.bar}
+					${parentValues.closing}
 				`,
 				errors: [
 					{
@@ -261,22 +75,50 @@ for (const [name, values] of Object.entries(declarations)) {
 					},
 				],
 				output: `
-					function outer() {
-						${values.foo} /*
+					${parentValues.opening}
+						${childValues.foo} /* A trailing comment */
+
+
+						${childValues.bar}
+					${parentValues.closing}
+				`,
+			},
+			{
+				name: `multiline trailing block comments before a ${childName} inside ${parentName}s`,
+				code: `
+					${parentValues.opening}
+						${childValues.foo} /*
+						A trailing comment
+						*/
+						${childValues.bar}
+					${parentValues.closing}
+				`,
+				errors: [
+					{
+						messageId: 'require-empty-lines-after',
+					},
+					{
+						messageId: 'require-empty-lines-before',
+					},
+				],
+				output: `
+					${parentValues.opening}
+						${childValues.foo} /*
 						A trailing comment
 						*/
 
 
-						${values.bar}
-					}
+						${childValues.bar}
+					${parentValues.closing}
 				`,
 			},
 			{
-				name: `preserves multiple trailing block comments before an inline ${name} declaration`,
+				name: `multiple trailing block comments before a ${childName} inside ${parentName}s`,
 				code: `
-					function outer() {
-						${values.foo} /* A trailing comment */ /* Another trailing comment */ ${values.bar}
-					}
+					${parentValues.opening}
+						${childValues.foo} /* A trailing comment */ /* Another trailing comment */
+						${childValues.bar}
+					${parentValues.closing}
 				`,
 				errors: [
 					{
@@ -287,24 +129,50 @@ for (const [name, values] of Object.entries(declarations)) {
 					},
 				],
 				output: `
-					function outer() {
-						${values.foo} /* A trailing comment */ /* Another trailing comment */
+					${parentValues.opening}
+						${childValues.foo} /* A trailing comment */ /* Another trailing comment */
 
 
-						${values.bar}
-					}
+						${childValues.bar}
+					${parentValues.closing}
 				`,
 			},
 			{
-				name: `preserves multiple trailing multiline block comments before an inline ${name} declaration`,
+				name: `multiple trailing mixed comments before a ${childName} inside ${parentName}s`,
 				code: `
-					function outer() {
-						${values.foo} /*
+					${parentValues.opening}
+						${childValues.foo} /* A trailing comment */ // Another trailing comment
+						${childValues.bar}
+					${parentValues.closing}
+				`,
+				errors: [
+					{
+						messageId: 'require-empty-lines-after',
+					},
+					{
+						messageId: 'require-empty-lines-before',
+					},
+				],
+				output: `
+					${parentValues.opening}
+						${childValues.foo} /* A trailing comment */ // Another trailing comment
+
+
+						${childValues.bar}
+					${parentValues.closing}
+				`,
+			},
+			{
+				name: `multiple multiline trailing block comments before a ${childName} inside ${parentName}s`,
+				code: `
+					${parentValues.opening}
+						${childValues.foo} /*
 						A trailing comment
 						*/ /*
 						Another trailing comment
-						*/ ${values.bar}
-					}
+						*/
+						${childValues.bar}
+					${parentValues.closing}
 				`,
 				errors: [
 					{
@@ -315,18 +183,163 @@ for (const [name, values] of Object.entries(declarations)) {
 					},
 				],
 				output: `
-					function outer() {
-						${values.foo} /*
+					${parentValues.opening}
+						${childValues.foo} /*
 						A trailing comment
 						*/ /*
 						Another trailing comment
 						*/
 
 
-						${values.bar}
-					}
+						${childValues.bar}
+					${parentValues.closing}
 				`,
 			},
-		],
-	});
+			{
+				name: `multiple multiline trailing mixed comments before a ${childName} inside ${parentName}s`,
+				code: `
+					${parentValues.opening}
+						${childValues.foo} /*
+						A trailing comment
+						*/ // Another trailing comment
+						${childValues.bar}
+					${parentValues.closing}
+				`,
+				errors: [
+					{
+						messageId: 'require-empty-lines-after',
+					},
+					{
+						messageId: 'require-empty-lines-before',
+					},
+				],
+				output: `
+					${parentValues.opening}
+						${childValues.foo} /*
+						A trailing comment
+						*/ // Another trailing comment
+
+
+						${childValues.bar}
+					${parentValues.closing}
+				`,
+			},
+		];
+
+		testValidAndInvalid('accepts', 'preserves', testCases);
+
+
+		test({
+			invalid: [
+				{
+					name: `preserves trailing block comments before an inline ${childName} inside ${parentName}s`,
+					code: `
+						${parentValues.opening}
+							${childValues.foo} /* A trailing comment */ ${childValues.bar}
+						${parentValues.closing}
+					`,
+					errors: [
+						{
+							messageId: 'require-empty-lines-after',
+						},
+						{
+							messageId: 'require-empty-lines-before',
+						},
+					],
+					output: `
+						${parentValues.opening}
+							${childValues.foo} /* A trailing comment */
+
+
+							${childValues.bar}
+						${parentValues.closing}
+					`,
+				},
+				{
+					name: `preserves trailing multiline block comments before an inline ${childName} inside ${parentName}s`,
+					code: `
+						${parentValues.opening}
+							${childValues.foo} /*
+							A trailing comment
+							*/ ${childValues.bar}
+						${parentValues.closing}
+					`,
+					errors: [
+						{
+							messageId: 'require-empty-lines-after',
+						},
+						{
+							messageId: 'require-empty-lines-before',
+						},
+					],
+					output: `
+						${parentValues.opening}
+							${childValues.foo} /*
+							A trailing comment
+							*/
+
+
+							${childValues.bar}
+						${parentValues.closing}
+					`,
+				},
+				{
+					name: `preserves multiple trailing block comments before an inline ${childName} inside ${parentName}s`,
+					code: `
+						${parentValues.opening}
+							${childValues.foo} /* A trailing comment */ /* Another trailing comment */ ${childValues.bar}
+						${parentValues.closing}
+					`,
+					errors: [
+						{
+							messageId: 'require-empty-lines-after',
+						},
+						{
+							messageId: 'require-empty-lines-before',
+						},
+					],
+					output: `
+						${parentValues.opening}
+							${childValues.foo} /* A trailing comment */ /* Another trailing comment */
+
+
+							${childValues.bar}
+						${parentValues.closing}
+					`,
+				},
+				{
+					name: `preserves multiple trailing multiline block comments before an inline ${childName} inside ${parentName}s`,
+					code: `
+						${parentValues.opening}
+							${childValues.foo} /*
+							A trailing comment
+							*/ /*
+							Another trailing comment
+							*/ ${childValues.bar}
+						${parentValues.closing}
+					`,
+					errors: [
+						{
+							messageId: 'require-empty-lines-after',
+						},
+						{
+							messageId: 'require-empty-lines-before',
+						},
+					],
+					output: `
+						${parentValues.opening}
+							${childValues.foo} /*
+							A trailing comment
+							*/ /*
+							Another trailing comment
+							*/
+
+
+							${childValues.bar}
+						${parentValues.closing}
+					`,
+				},
+			],
+		});
+	}
 }
