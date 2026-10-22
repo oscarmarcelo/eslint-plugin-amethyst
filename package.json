@@ -1,6 +1,6 @@
 {
 	"name": "eslint-plugin-amethyst",
-	"version": "0.2.0",
+	"version": "0.3.0",
 	"description": "Opinionated ESLint rules and configurations, designed to complement XO.",
 	"keywords": [
 		"eslint",
