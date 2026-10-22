@@ -69,7 +69,7 @@ export default function createTester(configName, ruleId) {
 
 				const expectedErrors = typeof errors === 'number'
 					? Array.from({length: errors}, () => ({}))
-					: errors;
+					: errors ?? [];
 
 				t.is(messages.length, expectedErrors.length);
 
