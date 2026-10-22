@@ -63,6 +63,8 @@ import normalizeTestCase from './normalize-test-case.js';
  * The last segment of the URL will be used to determine the rule ID to test.
  *
  * @returns {TestHelpers} The test helpers.
+ *
+ * @throws {Error} If the rule is unknown.
  */
 export default function createTester(urlValue) {
 	const ruleId = path.basename(url.fileURLToPath(urlValue), '.js');

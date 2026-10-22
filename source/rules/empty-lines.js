@@ -278,7 +278,7 @@ function hasJSDoc(unit) {
  * @param {Unit} currentUnit - The unit to check.
  * @param {Unit} adjacentUnit - The adjacent unit to check.
  *
- * @returns {boolean} - Whether the unit is an export declaration meeting those conditions.
+ * @returns {boolean} Whether the unit is an export declaration meeting those conditions.
  */
 function isLoneOrDeclarationExport(currentUnit, adjacentUnit) {
 	return (
@@ -299,7 +299,7 @@ function isLoneOrDeclarationExport(currentUnit, adjacentUnit) {
  *
  * @param {Rule.RuleContext} context - The rule's context.
  *
- * @returns {Rule.RuleListener} - The rule's visitors.
+ * @returns {Rule.RuleListener} The rule's visitors.
  */
 function create(context) {
 	return {

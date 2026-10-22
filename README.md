@@ -115,9 +115,15 @@ Amethyst also provides configurations for rules maintained by other ESLint plugi
 | `@stylistic/object-curly-newline` | Error | Does not report named imports. |
 | `@stylistic/padding-line-between-statements` | Error | Enforces empty lines around variable declarations (except between consecutive variables of the same kind), and before return statements. |
 | `import-x/order` | Error | Enforces empty lines between import groups and alphabetical ordering of imports, including named imports. |
+| `jsdoc/check-indentation` | Error | Allows sections of descriptions to be indented. |
 | `jsdoc/require-asterisk-prefix` | Error | Enforces each JSDoc line to start with `*`. |
+| `jsdoc/require-description-complete-sentence` | Error | Enforces complete sentences in descriptions. |
+| `jsdoc/require-hyphen-before-param-description` | Error | Enforces hyphens before parameter and property descriptions, and disallows in return and yield descriptions. |
+| `jsdoc/require-returns` | Error | Enforces members returning values to declare them. |
+| `jsdoc/require-throws` | Error | Enforces members throwing errors to declare them. |
 | `jsdoc/sort-tags` | Error | Enforces a custom tag order and grouping. |
 | `jsdoc/tag-lines` | Error | Enforces empty lines after descriptions and also between different tag kinds. |
+| `jsdoc/type-formatting` | Error | Enforces a specific formatting for types, including spacings and quotes. |
 | `no-console` | Warn | Reports the use of `console`, except for `.warn()` and `.error()`. |
 | `markdown/heading-increment` | Error | Enforces correct use of heading levels. |
 | `package-json/sort-properties` | Error | Enforces a custom property order. |

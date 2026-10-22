@@ -19,6 +19,8 @@ import normalizeTestCase from './normalize-test-case.js';
  * @param {string} ruleId - Fully qualified ESLint rule ID.
  *
  * @returns {(options: {valid?: unknown[], invalid?: unknown[]}) => void} The test helper.
+ *
+ * @throws {Error} If the preset name is unknown.
  */
 export default function createTester(configName, ruleId) {
 	const linter = new Linter();

@@ -133,11 +133,56 @@ const config = [
 				},
 			],
 
+			// Allow sections of descriptions to be indented.
+			'jsdoc/check-indentation': [
+				'error',
+				{
+					allowIndentedSections: true,
+				},
+			],
+
 			// Require the conventional asterisk prefix on every JSDoc line.
 			'jsdoc/require-asterisk-prefix': [
 				'error',
 				'always',
 			],
+
+			// Require complete sentences in descriptions.
+			'jsdoc/require-description-complete-sentence': [
+				'error',
+				{
+					tags: [
+						'property',
+						'throws',
+						'todo',
+					],
+				},
+			],
+
+			// Require hyphens before parameter and property descriptions.
+			// Disallow hyphens before return and yield descriptions.
+			'jsdoc/require-hyphen-before-param-description': [
+				'error',
+				'always',
+				{
+					tags: {
+						property: 'always',
+						returns: 'never',
+						yields: 'never',
+					},
+				},
+			],
+
+			// Require members returning values to declare them.
+			'jsdoc/require-returns': [
+				'error',
+				{
+					forceRequireReturn: false,
+				},
+			],
+
+			// Require members throwing errors to declare them.
+			'jsdoc/require-throws': 'error',
 
 			// Sort JSDoc tags in a specific order, with each group separated by a single empty line.
 			'jsdoc/sort-tags': [
@@ -204,6 +249,15 @@ const config = [
 				'any',
 				{
 					startLines: 1,
+				},
+			],
+
+			// Require a specific formatting for types, including spacing and quotes.
+			'jsdoc/type-formatting': [
+				'error',
+				{
+					methodQuotes: 'single',
+					stringQuotes: 'single',
 				},
 			],
 
